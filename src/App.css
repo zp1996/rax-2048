@@ -3,6 +3,7 @@
     align-items: center;
     background-color: #faf8ef;
     position: relative;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
 }
 .description {
     color: #776e65;
@@ -33,15 +34,24 @@
 .boardRow:last-child {
     margin-bottom: 0px;
 }
-.test {
-    background-color: rgba(238, 228, 218, 0.35);
-    width: inherit;
-    height: inherit;
-}
 .footer {
     text-align: center;
     color: #aaa;
     font-size: 25;
     width: auto;
     margin-top: 20;
+}
+.normal {
+    background-color: rgba(238, 228, 218, 0.35);
+    width: inherit;
+    height: inherit;
+}
+.val-first {
+    width: inherit;
+    height: inherit;
+    background-color: #eee4da;
+    text-align: center;
+    color: #776e65;
+    font-size: 70;
+    font-weight: bold;
 }

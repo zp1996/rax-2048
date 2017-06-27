@@ -4,9 +4,11 @@ import Text from 'rax-text';
 import styles from './index.css';
 
 // rax中的1是1/750,100作为空隙
-export default ({ children, totalWidth = 600, height = 200, styleMore = [] }) => {
+export default ({ children, totalWidth = 600, height = 200, styleMore = [], equal }) => {
     const width = ~~(totalWidth / children.length);
-    styles.col = { width, height };
+    styles.col = equal ? {
+        width, height, 'line-height': height
+    } : { width, height };
     return (
         <View style={[styles.row, ...styleMore]}>
             {
