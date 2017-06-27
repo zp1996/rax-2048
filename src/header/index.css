@@ -1,0 +1,37 @@
+.logo {
+    background-color: #edc53f;
+    text-align: center;
+    line-height: 200;
+    color: #fff;
+    border-radius: 20;
+}
+.logoText {
+    font-size: 50;
+    font-weight: 600;
+}
+.score {
+    background: #bbada0;
+    height: 120;
+    margin-bottom: 20;
+    border-radius: 10;
+    color: #fff;
+    text-align: center;
+    padding: 20;
+}
+.scoreTitle {
+    font-size: 20;
+    font-weight: 200;
+}
+.scoreNum {
+    font-size: 40;
+}
+.menu {
+    background: #da91c5;
+    height: 60;
+    border-radius: 10;
+    text-align: center;
+    line-height: 60;
+    color: #fff;
+    letter-spacing: 5;
+    font-size: 28;
+}

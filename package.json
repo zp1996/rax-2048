@@ -1,0 +1,20 @@
+{
+  "name": "hellop-world",
+  "author": "zp1996",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "rax-scripts start",
+    "build": "rax-scripts build",
+    "lint": "eslint --ext .js --ext .jsx ./src"
+  },
+  "dependencies": {
+    "rax": "^0.3.8",
+    "rax-view": "^0.3.8",
+    "rax-text": "^0.3.8"
+  },
+  "devDependencies": {
+    "rax-scripts": "^0.3.8",
+    "babel-eslint": "^7.1.0",
+    "eslint": "^3.10.0"
+  }
+}

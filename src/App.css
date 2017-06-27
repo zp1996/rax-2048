@@ -1,0 +1,47 @@
+.wrapper {
+    flex: 1;
+    align-items: center;
+    background-color: #faf8ef;
+    position: relative;
+}
+.description {
+    color: #776e65;
+    text-align: center;
+    margin: 30 0 40 0;
+}
+.baseAllIn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+.main {
+    margin: 30;
+}
+.board {
+    height: 690;
+    background-color: #bbada0;
+    border-radius: 20;
+}
+.boardRow {
+    dispay: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20;
+}
+.boardRow:last-child {
+    margin-bottom: 0px;
+}
+.test {
+    background-color: rgba(238, 228, 218, 0.35);
+    width: inherit;
+    height: inherit;
+}
+.footer {
+    text-align: center;
+    color: #aaa;
+    font-size: 25;
+    width: auto;
+    margin-top: 20;
+}
