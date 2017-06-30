@@ -1,4 +1,4 @@
-export const getCollection = () => {
+export default () => {
     let val = 2, index = 0;
     const data = [], hash = {};
     while (val <= 2048) {
@@ -7,8 +7,4 @@ export const getCollection = () => {
         val *= 2;
     }
     return { data, hash };
-};
-
-export const stylesName = {
-    '2': 'val-first'
 };

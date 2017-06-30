@@ -45,13 +45,33 @@
     background-color: rgba(238, 228, 218, 0.35);
     width: inherit;
     height: inherit;
+    border-radius: 10;
 }
-.val-first {
+.point {
     width: inherit;
     height: inherit;
-    background-color: #eee4da;
     text-align: center;
-    color: #776e65;
     font-size: 70;
     font-weight: bold;
+    border-radius: 10;
+}
+.val-first {
+    background-color: #eee4da;
+    color: #776e65;
+}
+.val-second {
+    background-color: #ede0c8;
+    color: #776e65;
+}
+.val-third {
+    background-color: #f2b179;
+    color: #fff;
+}
+.val-forth {
+    background-color: #f59563;
+    color: #fff;
+}
+.val-fifth {
+    background-color: #f67c5f;
+    color: #f9f6f2;
 }
