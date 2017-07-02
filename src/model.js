@@ -40,23 +40,27 @@ class Model {
     }
     init() {
         // 初始化两个点
-        this.newPoint();
-        this.newPoint();
+        // this.newPoint();
+        // this.newPoint();
+        this.pieces[0][0] = 4;
+        // this.pieces[0][1] = 4;
+        this.pieces[0][3] = 2;
+        this.pieces[0][2] = 2;
+        delete this.empty['0,0'];
+        // delete this.empty['0,1'];
+        delete this.empty['0,2'];
+        delete this.empty['0,3'];
         return this.pieces;
-    }
-    changeEmpty(row, col) {
-        delete this.empty[`${row},${col - 1}`];
-        this.empty[`${row},${col}`] = true;
     }
     baseChange(fn) {
         fn();
         this.newPoint();
         return this.pieces;
     }
-    baseRemove(temp, index, r, arr, getIndex) {
+    baseRemove(temp, index, r, arr, getIndex, flag) {
         const { length } = temp;
-        let i = 0, emptyIndex = getIndex.empty(index, length);
-        delete this.empty[`${r},${index}`];
+        let i = 0, emptyIndex = getIndex.empty(index, length, flag);
+        delete this.empty[`${r},${getIndex.remove(index)}`];
         for ( ; i < length; i++) {
             arr[getIndex.index(index, i)] = temp[length - i - 1];
         }
@@ -66,11 +70,14 @@ class Model {
     levelBase(condition) {     // 水平方向上移动
         return this.baseChange(() => {
             for (let r = 0; r < this.size; r++) {
-                const { getVal, judge, getAdd, judgeAdd, toNext, getIndex } = condition();
+                const {
+                    getVal, judge, getAdd,
+                    judgeAdd, toNext, getIndex, changeEmpty
+                } = condition();
                 const arr = this.pieces[r];
                 const temp = [];
                 while (judge()) {
-                    const { index, next } = getVal();
+                    let { index, next } = getVal();
                     if (arr[index] === 0) {
                         continue;
                     } else if (arr[index] === arr[next]) {
@@ -79,23 +86,27 @@ class Model {
                             this.hash[arr[index]] + 1
                         ];
                         arr[index] = 0;
-                        this.changeEmpty(r, index);
+                        changeEmpty(r, index);
                         if (judgeAdd(add) && arr[add] === 0) {
                             arr[add] = arr[next];
                             arr[next] = 0;
-                            this.changeEmpty(r, next);
+                            changeEmpty(r, next);
+                            index = next;
                         }
+                        // temp.length && this.baseRemove(temp, index, r, arr, getIndex, true);
+                        // temp.push(arr[next]);
                         toNext();
                     } else if (arr[next] === 0) {
                         arr[next] = arr[index];
                         arr[index] = 0;
-                        this.changeEmpty(r, index);
+                        changeEmpty(r, index, temp);
                         this.baseRemove(temp, index, r, arr, getIndex);
                     } else {
                         temp.push(arr[index]);
                     }
                 }
             }
+            console.log(this.empty);
         });
     }
     right() {
@@ -109,10 +120,19 @@ class Model {
                 },
                 getAdd: () => index + 2,
                 judgeAdd: val => val <= this.size,
-                toNext: () => i++,
+                toNext: () => i += 2,
                 getIndex: {
-                    empty: (index, length) => index - length,
-                    index: (index, i) => index - i
+                    empty: (index, length, flag) => {
+                        const res = index - length;
+                        console.log(res);
+                        return flag ? res - 1 : res;
+                    },
+                    index: (index, i) => index - i,
+                    remove: index => index + 1
+                },
+                changeEmpty: (row, col, temp = []) => {
+                    delete this.empty[`${row},${col + 1}`];
+                    this.empty[`${row},${col - temp.length}`] = true;
                 }
             };
         };
@@ -129,10 +149,18 @@ class Model {
                 },
                 getAdd: () => index - 2,
                 judgeAdd: val => val >= 0,
-                toNext: () => i++,
+                toNext: () => i += 2,
                 getIndex: {
-                    empty: (index, length) => index + length,
-                    index: (index, i) => index + i
+                    empty: (index, length, flag) => {
+                        const res = index + length;
+                        return flag ? res + 1 : res;
+                    },
+                    index: (index, i) => index + i,
+                    remove: index => index
+                },
+                changeEmpty: (row, col) => {
+                    delete this.empty[`${row},${col - 1}`];
+                    this.empty[`${row},${col}`] = true;
                 }
             };
         };
