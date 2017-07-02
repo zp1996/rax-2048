@@ -53,12 +53,12 @@ class Model {
         this.newPoint();
         return this.pieces;
     }
-    baseRemove(temp, index, r, arr) {
+    baseRemove(temp, index, r, arr, getIndex) {
         const { length } = temp;
-        let i = 0, emptyIndex = index + length;
+        let i = 0, emptyIndex = getIndex.empty(index, length);
         delete this.empty[`${r},${index}`];
         for ( ; i < length; i++) {
-            arr[index + i] = temp[length - i - 1];
+            arr[getIndex.index(index, i)] = temp[length - i - 1];
         }
         arr[emptyIndex] = 0;
         this.empty[`${r},${emptyIndex}`] = true;
@@ -66,7 +66,7 @@ class Model {
     levelBase(condition) {     // 水平方向上移动
         return this.baseChange(() => {
             for (let r = 0; r < this.size; r++) {
-                const { getVal, judge, getAdd, judgeAdd, toNext } = condition();
+                const { getVal, judge, getAdd, judgeAdd, toNext, getIndex } = condition();
                 const arr = this.pieces[r];
                 const temp = [];
                 while (judge()) {
@@ -90,7 +90,7 @@ class Model {
                         arr[next] = arr[index];
                         arr[index] = 0;
                         this.changeEmpty(r, index);
-                        this.baseRemove(temp, index, r, arr);
+                        this.baseRemove(temp, index, r, arr, getIndex);
                     } else {
                         temp.push(arr[index]);
                     }
@@ -109,7 +109,11 @@ class Model {
                 },
                 getAdd: () => index + 2,
                 judgeAdd: val => val <= this.size,
-                toNext: () => i++
+                toNext: () => i++,
+                getIndex: {
+                    empty: (index, length) => index - length,
+                    index: (index, i) => index - i
+                }
             };
         };
         return this.levelBase(condition);
@@ -125,7 +129,11 @@ class Model {
                 },
                 getAdd: () => index - 2,
                 judgeAdd: val => val >= 0,
-                toNext: () => i++
+                toNext: () => i++,
+                getIndex: {
+                    empty: (index, length) => index + length,
+                    index: (index, i) => index + i
+                }
             };
         };
         return this.levelBase(condition);
